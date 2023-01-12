@@ -1,11 +1,13 @@
 import { Container, Renderer, Loader} from 'pixi.js';
 import { CONFIG } from "./gameConfig";
+import { GameManager } from './GameManager';
 
 window.addEventListener("DOMContentLoaded", initPixiApp);
 
 let PIXI_Renderer : Renderer;
 let PIXI_Loader : Loader;
 let stage : Container;
+let gameManager : GameManager;
 let timestampOnFrameRequest : number, dt : number;
 
 const WIDTH = CONFIG.RENDERER_WIDTH;
@@ -40,6 +42,8 @@ function initPixiApp() {
 
 function initGame() {
 
+  gameManager = new GameManager(PIXI_Loader, stage);
+  stage.addChild(gameManager.gameWorld);
   //start game loop
   timestampOnFrameRequest = performance.now();
   updateGame(timestampOnFrameRequest);
@@ -49,8 +53,11 @@ function updateGame(_callbacExecutedTime : number) {
   //timestep for time calculation
   //get time difference between frame request time and frame callback time
   dt = _callbacExecutedTime - timestampOnFrameRequest;
+  dt *= 0.06;
   //assign callback time as new frame request time as we'll request a frame again
   timestampOnFrameRequest = _callbacExecutedTime;
+
+  gameManager.update(dt);
   //do the next frame request
   requestAnimationFrame(updateGame);
 
