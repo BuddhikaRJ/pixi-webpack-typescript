@@ -12,11 +12,9 @@ const COMMON_CONFIG = {
     clean: true,
   },
   plugins: [
-    new HtmlWebpackPlugin(
-      {
-        template:'./src/index.html'
-      }
-    ),
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+    }),
     new ProgressPlugin(),
     new CopyPlugin({
       patterns: [
@@ -25,17 +23,20 @@ const COMMON_CONFIG = {
     }),
   ],
   module: {
-    rules : [
+    rules: [
       {
-        test : /\.ts$/,
-        use: 'ts-loader'
-      }
-    ]
+        test: /\.ts$/,
+        use: "ts-loader",
+      },
+    ],
   },
   optimization: {
     splitChunks: {
       chunks: "all",
     },
+  },
+  resolve: {
+    extensions: [".jsx", ".ts", ".tsx", "..."],
   },
 };
 
