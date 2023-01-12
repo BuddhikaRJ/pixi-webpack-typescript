@@ -7,7 +7,7 @@ export class Keyboard {
     downListener : any;
     upListener : any;
 
-    constructor(key : String, pressFunc : Function, releaseFunc : Function){
+    constructor(key : string, pressFunc : Function, releaseFunc : Function){
         this.value = key;
         this.isDown = false;
         this.isUp = true;
