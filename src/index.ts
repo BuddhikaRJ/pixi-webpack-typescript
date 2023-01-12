@@ -3,10 +3,10 @@ import { CONFIG } from "./gameConfig";
 
 window.addEventListener("DOMContentLoaded", initPixiApp);
 
-let PIXI_Renderer;
-let PIXI_Loader;
-let stage;
-let timestampOnFrameRequest, dt;
+let PIXI_Renderer : Renderer;
+let PIXI_Loader : Loader;
+let stage : Container;
+let timestampOnFrameRequest : number, dt : number;
 
 const WIDTH = CONFIG.RENDERER_WIDTH;
 const HEIGHT = CONFIG.RENDERER_HEIGHT;
@@ -16,7 +16,7 @@ const ASSETS_LIST = CONFIG.ASSETS;
 
 function initPixiApp() {
   PIXI_Renderer = new Renderer({ width:WIDTH, height:HEIGHT});
-  PIXI_Renderer.autoResize = true;
+//   PIXI_Renderer.autoResize = true;
 
   document.body.appendChild(PIXI_Renderer.view);
 
@@ -45,7 +45,7 @@ function initGame() {
   updateGame(timestampOnFrameRequest);
 }
 
-function updateGame(_callbacExecutedTime) {
+function updateGame(_callbacExecutedTime : number) {
   //timestep for time calculation
   //get time difference between frame request time and frame callback time
   dt = _callbacExecutedTime - timestampOnFrameRequest;

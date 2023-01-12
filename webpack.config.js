@@ -5,7 +5,7 @@ const {ProgressPlugin} = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 
 const COMMON_CONFIG = {
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   output: {
     filename: "[name].[contenthash].js",
     path: path.resolve(__dirname, "dist"),
@@ -24,6 +24,14 @@ const COMMON_CONFIG = {
       ],
     }),
   ],
+  module: {
+    rules : [
+      {
+        test : /\.ts$/,
+        use: 'ts-loader'
+      }
+    ]
+  },
   optimization: {
     splitChunks: {
       chunks: "all",
@@ -60,5 +68,6 @@ module.exports = (env) => {
       config = SERVE;
       break;
   }
+  console.log(merge(config, COMMON_CONFIG))
   return merge(config, COMMON_CONFIG);
 };
