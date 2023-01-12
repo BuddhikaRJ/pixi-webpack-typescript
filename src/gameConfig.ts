@@ -5,6 +5,7 @@ export const CONFIG : any = {
         game_sprite: "./images/game.png",
     },
     TEXTURE_COORDS: {
-        SQUARE: [270, 29, 230, 230]
+        SQUARE: [270, 29, 230, 230],
+        CIRCLE: [30, 29, 230, 230]
     }
 }

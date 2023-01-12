@@ -14,13 +14,13 @@ export class GameManager {
         this.assetLoader = _assets;
         this.stage = _stage;
 
-        let tex = this.assetLoader.resources[CONFIG.ASSETS.game_sprite].texture
-        this.tankManager = new TankManager(tex!);
+        let tex = this.assetLoader.resources[CONFIG.ASSETS.game_sprite].texture;
+        this.tankManager = new TankManager(tex!, this.gameWorld);
         this.gameWorld.addChild(this.tankManager.tankSprite);
         
     }
 
     update(dt: number){
-        this.tankManager.move(dt)
+        this.tankManager.update(dt)
     }
 }
