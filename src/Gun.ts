@@ -100,10 +100,11 @@ export class Gun {
     }
 
     shoot(){
-        console.log("shoot");
+        // console.log("shoot");
         const b = this.bulletsArray[this.bulletId]
         this.gameWorld.addChild(b.bulletSprite);
         b.bulletSprite.tint = this.currentGunType.color;
+        b.damage = this.currentGunType.damage;
         b.setMoving(this.player.tankSprite.x, this.player.tankSprite.y, this.player.gunX, this.player.gunY);
     }
 

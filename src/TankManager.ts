@@ -27,6 +27,8 @@ export class TankManager {
     gunY = 0;
     gameWorld : Container;
 
+    isinContactWithTile = false;
+
     constructor(_spritesheet : Texture, parent: Container){
         this.gameWorld = parent;
         let tex = new Texture(_spritesheet.baseTexture);
@@ -121,5 +123,11 @@ export class TankManager {
         this.gunX = this.vX;
         this.gunY = this.vY;
 
+    }
+
+    onHitTile(){
+        console.log("hit");
+        this.vX = 0;
+        this.vY = 0;
     }
 }

@@ -6,7 +6,8 @@ export class Bullet {
     vX = 0;
     vY = 0;
     moveSpeed = 10;
-    movable = false;
+    isActive = false;
+    damage = 0;
 
     constructor(_spritesheet: Texture) {
         let tex = new Texture(_spritesheet.baseTexture);
@@ -17,7 +18,7 @@ export class Bullet {
     }
 
     update(dt: number) {
-        if(!this.movable)return;
+        if(!this.isActive)return;
         this.bulletSprite.x += this.vX * this.moveSpeed * dt;
         this.bulletSprite.y += this.vY * this.moveSpeed * dt;
     }
@@ -26,6 +27,7 @@ export class Bullet {
         this.bulletSprite.position.set(x,y);
         this.vX = _vx;
         this.vY = _vy;
-        this.movable = true;
+        this.isActive = true;
     }
+
 }
