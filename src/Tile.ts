@@ -100,7 +100,7 @@ export class HayTile extends Tile {
     constructor(_spritesheet: Texture, _player : TankManager, _bullets : Bullet[], _parent:Container){
         super(_spritesheet, _player, _bullets, _parent);
         this.tileSprite.tint = 0X66aa66;
-        this.healthTxt = new Text(this.Health, {fill: 0Xffffff, fontSize: '20px'});
+        this.healthTxt = new Text(this.Health, {fill: 0Xffffff, fontSize: '20px', fontWeight:'700'});
         this.healthTxt.anchor.set(0.5);
         this.tileSprite.addChild(this.healthTxt)
     }

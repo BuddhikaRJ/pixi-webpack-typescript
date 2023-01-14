@@ -12,6 +12,7 @@
 ## How to Use
 
 1. Install NPM packages
+   * game was developed on Node v19.3.0
    ```sh
    npm install
    ```
