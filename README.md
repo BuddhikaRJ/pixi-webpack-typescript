@@ -23,5 +23,7 @@
    ```js
    npm run build
    ```
-
+## Configuration
+   * each class has configurable variables at the beginning of the class.
+   * gameConfig.ts can be used to change the renderer dimensions, add assets and texture coordinate references.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
