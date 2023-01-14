@@ -3,7 +3,7 @@ import { Bullet } from "./Bullet";
 import { CONFIG } from "./gameConfig";
 import { TankManager } from "./TankManager";
 
-class Tile {
+export class Tile {
     //player reference
     tankObj : TankManager;
 
@@ -18,11 +18,18 @@ class Tile {
 
     isActive = false;
 
+    tileWidth = 35;
+    tileHeight = 35;
+
+    next : Tile | undefined;
+
 
     constructor(_spritesheet: Texture, _player : TankManager, _bullets : Bullet[], _parent:Container) {
         let tex = new Texture(_spritesheet.baseTexture);
         tex.frame = new Rectangle(...CONFIG.TEXTURE_COORDS.SQUARE);
         this.tileSprite = new Sprite(tex);
+        this.tileSprite.width = this.tileWidth;
+        this.tileSprite.height = this.tileHeight;
         this.tileSprite.anchor.set(0.5);
 
         this.tankObj = _player;
@@ -38,7 +45,10 @@ class Tile {
 
     update(){
         //if colliding player, stop movement
-        if(!this.isActive)return;
+        if(!this.isActive){
+            this.next!.update();
+            return
+        };
 
         if(this.isBoxCollision(this.tankObj.tankSprite, this.tileSprite)){
             this.tankObj.isinContactWithTile = this.hitIsFacingTowardsTile();
@@ -53,6 +63,9 @@ class Tile {
                 this.onHitBullet(element);
             }
         });
+
+        if(!this.next) return;
+        this.next!.update();
     }
 
     isBoxCollision(p1 : Sprite, p2 : Sprite){

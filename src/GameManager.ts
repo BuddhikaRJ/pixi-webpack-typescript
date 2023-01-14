@@ -4,6 +4,7 @@ import { Gun } from "./Gun";
 import { Keyboard } from "./Keyboard";
 import { TankManager } from "./TankManager";
 import { HayTile, WallTile } from "./Tile";
+import { TileManager } from "./TileManager";
 
 export class GameManager {
     gameWorld: Container;
@@ -11,8 +12,7 @@ export class GameManager {
     stage: Container;
     tankManager : TankManager;
     gun : Gun;
-    testHayTile1 : HayTile;
-    testWallTile : WallTile;
+    tileManager : TileManager;
 
     constructor(_assets: Loader, _stage: Container) {
         this.gameWorld = new Container();
@@ -25,16 +25,12 @@ export class GameManager {
 
         this.gun = new Gun(tex!, this.gameWorld, this.tankManager);
 
-        this.testHayTile1 = new HayTile(tex!, this.tankManager, this.gun.bulletsArray, this.gameWorld);
-        this.testWallTile = new WallTile(tex!, this.tankManager, this.gun.bulletsArray, this.gameWorld);
+        this.tileManager = new TileManager(tex!, this.tankManager, this.gun.bulletsArray, this.gameWorld);
 
-        this.testHayTile1.tileSprite.position.set(200);
-        this.testWallTile.tileSprite.position.set(700)
     }
 
     update(dt: number){
-        this.testHayTile1.update();
-        this.testWallTile.update(); 
+        this.tileManager.update();
         
         this.tankManager.update(dt);
 

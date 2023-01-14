@@ -1,6 +1,6 @@
 export const CONFIG : any = {
-    RENDERER_WIDTH: 1024,
-    RENDERER_HEIGHT:1024,
+    RENDERER_WIDTH: 1750,
+    RENDERER_HEIGHT: 1750,
     ASSETS:{
         game_sprite: "./images/game.png",
     },
