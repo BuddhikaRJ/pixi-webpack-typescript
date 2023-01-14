@@ -101,6 +101,8 @@ export class TankManager {
         this.tankSprite.x += this.vX * this.moveSpeed * dt;
         this.tankSprite.y += this.vY * this.moveSpeed * dt;
 
+
+        //keep tank inside game area
         this.tankSprite.y = this.tankSprite.y < this.tankHeight*0.5 ? this.tankHeight*0.5 : this.tankSprite.y;
         this.tankSprite.y = this.tankSprite.y > CONFIG.RENDERER_HEIGHT - this.tankHeight*0.5 ? CONFIG.RENDERER_HEIGHT - this.tankHeight*0.5 : this.tankSprite.y;
 

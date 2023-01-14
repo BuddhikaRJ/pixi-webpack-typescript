@@ -25,26 +25,31 @@ export class TileManager {
     loopIndex = 0;
 
     constructor(_spritesheet : Texture, _player : TankManager, _bullets : Bullet[], _parent : Container){
+
+        //generate tile positions
         this.tilePosArray = this.generateRandomPositions(CONFIG.RENDERER_WIDTH, CONFIG.RENDERER_HEIGHT, _player);
 
+        //hay tiles
         for (this.loopIndex = 0; this.loopIndex < this.hayTileCount; this.loopIndex++) {
             let tile = new HayTile(_spritesheet, _player, _bullets, _parent)
-            this.appendTileToList(tile);
+            this.appendTileToLinkedList(tile);
             this.tilesArray.push(tile);
         }
 
+        //wall tiles
         for (this.loopIndex = 0; this.loopIndex < this.wallTileCount; this.loopIndex++) {
             let walltile = new WallTile(_spritesheet, _player, _bullets, _parent);
-            this.appendTileToList(walltile);
+            this.appendTileToLinkedList(walltile);
             this.tilesArray.push(walltile);
         }
 
+        //position all the tiles
         for (this.loopIndex = 0; this.loopIndex < this.totalTiles; this.loopIndex++) {
             this.tilesArray[this.loopIndex].tileSprite.position.set(this.tilePosArray[this.loopIndex].x, this.tilePosArray[this.loopIndex].y)
         }
     }
 
-    appendTileToList(_tile : Tile) {
+    appendTileToLinkedList(_tile : Tile) {
         if(!this.tileLinkedListHead){
             this.tileLinkedListHead = _tile
             this.tileLinkedListTail = this.tileLinkedListHead;

@@ -47,7 +47,7 @@ export class Tile {
     update(){
         
         if(!this.isActive){
-            this.next!.update();
+            this.next.update();
             return;
         };
 
