@@ -8,7 +8,7 @@ export class Gun {
     bulletPoolsize = 3;
     bulletTickMax = 10;
     shootWaitTickmax = 10;
-    GUN_DATA : any = {
+    GUN_TYPE_DATA : any = {
         RED : {
             color : 0xff0000,
             damage : 10,
@@ -43,9 +43,9 @@ export class Gun {
 
     //type switch
     switchGunKey : Keyboard;
-    gunTypes = Object.keys(this.GUN_DATA);
-    gunTypesCount = this.gunTypes.length;
-    gunTypeId = 0;
+    gunTypesArray = Object.keys(this.GUN_TYPE_DATA);
+    gunTypesCount = this.gunTypesArray.length;
+    gunTypeArrId = 0;
     currentGunType : any;
 
     constructor(_spritesheet : Texture, parent: Container, player: TankManager){
@@ -55,7 +55,7 @@ export class Gun {
             const bullet = new Bullet(_spritesheet, parent);
             this.bulletPool.push(bullet);
         }
-        this.applyGunTypeChanges(this.GUN_DATA.RED);
+        this.applyGunTypeChanges(this.GUN_TYPE_DATA.RED);
 
         this.switchGunKey = new Keyboard(
             "t", 
@@ -111,9 +111,9 @@ export class Gun {
     }
 
     selectNewGun(){
-        this.gunTypeId += 1;
-        this.gunTypeId %= this.gunTypesCount;
-        this.applyGunTypeChanges(this.GUN_DATA[this.gunTypes[this.gunTypeId]])
+        this.gunTypeArrId += 1;
+        this.gunTypeArrId %= this.gunTypesCount;
+        this.applyGunTypeChanges(this.GUN_TYPE_DATA[this.gunTypesArray[this.gunTypeArrId]])
     }
 
     applyGunTypeChanges(typeObj : any){
