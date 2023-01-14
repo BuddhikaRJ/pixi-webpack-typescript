@@ -35,11 +35,11 @@ export class Gun {
     gunTicker = 0;
     bulletId = 0;
     bulletsPerShot = 0;
-    shootState: any = {
-        shooting: 0,
-        waiting: 1
+    SHOOT_STATE: any = {
+        SHOOTING: 0,
+        WAITING: 1
     }
-    currentShootState = this.shootState.waiting;
+    currentShootState = this.SHOOT_STATE.WAITING;
 
     //type switch
     switchGunKey : Keyboard;
@@ -67,16 +67,16 @@ export class Gun {
 
     update(dt: number){
         switch (this.currentShootState) {
-            case this.shootState.waiting:
+            case this.SHOOT_STATE.WAITING:
                 // console.log("wait");
                 this.gunTicker += dt;
                 this.gunTicker = this.gunTicker > this.shootWaitTickmax ? this.shootWaitTickmax : this.gunTicker;
                 if(this.gunTicker === this.shootWaitTickmax){
-                    this.currentShootState = this.shootState.shooting;
+                    this.currentShootState = this.SHOOT_STATE.SHOOTING;
                     this.gunTicker = 0;
                 }
                 break;
-            case this.shootState.shooting:
+            case this.SHOOT_STATE.SHOOTING:
                 this.gunTicker += dt;
                 this.gunTicker = this.gunTicker > this.bulletTickMax ? this.bulletTickMax : this.gunTicker;
                 if(this.gunTicker === this.bulletTickMax){
@@ -85,7 +85,7 @@ export class Gun {
                         this.bulletId += 1;
                     }
                     else{
-                        this.currentShootState = this.shootState.waiting;
+                        this.currentShootState = this.SHOOT_STATE.WAITING;
                         this.bulletId = 0;
                     }
                     this.gunTicker = 0;
