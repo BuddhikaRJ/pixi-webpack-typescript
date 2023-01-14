@@ -92,6 +92,12 @@ export class TankManager {
     move(dt: number) {
         this.tankSprite.x += this.vX * this.moveSpeed * dt;
         this.tankSprite.y += this.vY * this.moveSpeed * dt;
+
+        this.tankSprite.y = this.tankSprite.y < this.tankHeight*0.5 ? this.tankHeight*0.5 : this.tankSprite.y;
+        this.tankSprite.y = this.tankSprite.y > CONFIG.RENDERER_HEIGHT - this.tankHeight*0.5 ? CONFIG.RENDERER_HEIGHT - this.tankHeight*0.5 : this.tankSprite.y;
+
+        this.tankSprite.x = this.tankSprite.x < this.tankWidth*0.5 ? this.tankWidth*0.5 : this.tankSprite.x;
+        this.tankSprite.x = this.tankSprite.x > CONFIG.RENDERER_WIDTH - this.tankWidth*0.5 ? CONFIG.RENDERER_WIDTH - this.tankWidth*0.5 : this.tankSprite.x;
     }
 
     setMovement(dir : number) {

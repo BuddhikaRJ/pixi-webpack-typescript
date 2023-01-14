@@ -1,20 +1,22 @@
-import { BaseTexture, Rectangle, Sprite, Texture } from "pixi.js";
+import { Container, Rectangle, Sprite, Texture } from "pixi.js";
 import { CONFIG } from "./gameConfig";
 
 export class Bullet {
     bulletSprite : Sprite;
+    gameWorld : Container;
     vX = 0;
     vY = 0;
-    moveSpeed = 10;
+    moveSpeed = 15;
     isActive = false;
     damage = 0;
 
-    constructor(_spritesheet: Texture) {
+    constructor(_spritesheet: Texture, parent: Container) {
+        this.gameWorld = parent;
         let tex = new Texture(_spritesheet.baseTexture);
         this.bulletSprite = new Sprite(tex);
         this.bulletSprite.texture.frame = new Rectangle(...CONFIG.TEXTURE_COORDS.CIRCLE);
         this.bulletSprite.anchor.set(0.5);
-        this.bulletSprite.scale.set(0.2)
+        this.bulletSprite.scale.set(0.1);
     }
 
     update(dt: number) {
@@ -28,6 +30,12 @@ export class Bullet {
         this.vX = _vx;
         this.vY = _vy;
         this.isActive = true;
+    }
+
+    onCollision(){
+        if(!this.isActive)return;
+        this.isActive = false;
+        this.gameWorld.removeChild(this.bulletSprite);
     }
 
 }

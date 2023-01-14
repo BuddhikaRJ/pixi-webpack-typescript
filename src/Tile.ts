@@ -1,4 +1,4 @@
-import { Container, Rectangle, Sprite, Texture } from "pixi.js";
+import { Container, Rectangle, Sprite, Text, Texture } from "pixi.js";
 import { Bullet } from "./Bullet";
 import { CONFIG } from "./gameConfig";
 import { TankManager } from "./TankManager";
@@ -93,26 +93,28 @@ export class Tile {
 
 export class HayTile extends Tile {
     Health = 100;
+    healthTxt : Text;
+
     constructor(_spritesheet: Texture, _player : TankManager, _bullets : Bullet[], _parent:Container){
         super(_spritesheet, _player, _bullets, _parent);
-        this.tileSprite.tint = 0X66aa66
+        this.tileSprite.tint = 0X66aa66;
+        this.healthTxt = new Text(this.Health, {fill: 0Xffffff, fontSize: '20px'});
+        this.healthTxt.anchor.set(0.5);
+        this.tileSprite.addChild(this.healthTxt)
     }
 
     onHitBullet(_bullet : Bullet): void {
-        console.log("hay");
-        if(!_bullet.isActive)return;
-        _bullet.isActive = false;
-        if(!this.tileSprite.visible) return;
-        this.gameWorld.removeChild(_bullet.bulletSprite);
+        if(!this.isActive) return;
 
-        console.log(this.Health);
+        _bullet.onCollision();
 
-        if (this.Health > 0) {
+        if (this.Health -_bullet.damage > 0) {
             this.Health -= _bullet.damage;
+            this.healthTxt.text = this.Health;
             return;
         }
 
-        this.tileSprite.visible = false;
+        this.gameWorld.removeChild(this.tileSprite);
         this.isActive = false;
     }
 }
@@ -124,9 +126,7 @@ export class WallTile extends Tile {
     }
 
     onHitBullet(_bullet : Bullet): void {
-        if(!_bullet.isActive)return;
-        _bullet.isActive = false;
-        this.gameWorld.removeChild(_bullet.bulletSprite);
+        _bullet.onCollision();
         console.log("wall");
     }
 }

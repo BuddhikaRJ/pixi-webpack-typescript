@@ -50,7 +50,7 @@ export class Gun {
         this.gameWorld = parent;
         this.player =player;
         for (let index = 0; index < this.bulletCount; index++) {
-            const bullet = new Bullet(_spritesheet);
+            const bullet = new Bullet(_spritesheet, parent);
             this.bulletsArray.push(bullet);
         }
         this.applyGunTypeChanges(this.GUN_DATA.RED);
