@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture } from "pixi.js";
+import { Container, Texture } from "pixi.js";
 import { Bullet } from "./Bullet";
 import { Keyboard } from "./Keyboard";
 import { TankManager } from "./TankManager";

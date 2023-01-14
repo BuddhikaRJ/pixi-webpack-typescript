@@ -1,9 +1,7 @@
-import { BaseTexture, Container, Loader, Rectangle, Sprite, Texture } from "pixi.js";
+import { Container, Loader} from "pixi.js";
 import { CONFIG } from "./gameConfig";
 import { Gun } from "./Gun";
-import { Keyboard } from "./Keyboard";
 import { TankManager } from "./TankManager";
-import { HayTile, WallTile } from "./Tile";
 import { TileManager } from "./TileManager";
 
 export class GameManager {
@@ -19,9 +17,9 @@ export class GameManager {
         this.assetLoader = _assets;
         this.stage = _stage;
 
-        let tex = this.assetLoader.resources[CONFIG.ASSETS.game_sprite].texture;
+        const tex = this.assetLoader.resources[CONFIG.ASSETS.game_sprite].texture;
+        
         this.tankManager = new TankManager(tex!, this.gameWorld);
-        this.gameWorld.addChild(this.tankManager.tankSprite);
 
         this.gun = new Gun(tex!, this.gameWorld, this.tankManager);
 

@@ -10,9 +10,10 @@ export class Bullet {
     isActive = false;
     damage = 0;
 
-    constructor(_spritesheet: Texture, parent: Container) {
-        this.gameWorld = parent;
-        let tex = new Texture(_spritesheet.baseTexture);
+    constructor(_spritesheet: Texture, _parent: Container) {
+        this.gameWorld = _parent;
+        
+        const tex = new Texture(_spritesheet.baseTexture);
         this.bulletSprite = new Sprite(tex);
         this.bulletSprite.texture.frame = new Rectangle(...CONFIG.TEXTURE_COORDS.CIRCLE);
         this.bulletSprite.anchor.set(0.5);

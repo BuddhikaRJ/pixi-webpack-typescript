@@ -1,7 +1,5 @@
 import {Container, Rectangle, Sprite, Texture} from "pixi.js";
-import { Bullet } from "./Bullet";
 import { CONFIG } from "./gameConfig";
-import { Gun } from "./Gun";
 import { Keyboard } from "./Keyboard";
 
 export class TankManager {
@@ -31,7 +29,8 @@ export class TankManager {
 
     constructor(_spritesheet : Texture, parent: Container){
         this.gameWorld = parent;
-        let tex = new Texture(_spritesheet.baseTexture);
+        
+        const tex = new Texture(_spritesheet.baseTexture);
         this.tankSprite = new Sprite(tex);
         this.tankSprite.texture.frame = new Rectangle(...CONFIG.TEXTURE_COORDS.SQUARE);
         this.tankSprite.anchor.set(0.5);
@@ -83,6 +82,8 @@ export class TankManager {
         this.tankSprite.position.set(512);
         this.tankSprite.rotation = -1.57;
         this.gunY =-1;
+
+        this.gameWorld.addChild(this.tankSprite);
     }
 
     update(dt: number){

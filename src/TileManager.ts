@@ -5,8 +5,8 @@ import { TankManager } from "./TankManager";
 import { HayTile, Tile, WallTile } from "./Tile";
 
 export class TileManager {
-    tileLinkedListHead : Tile | undefined;
-    tileLinkedListTail : Tile | undefined;
+    tileLinkedListHead!: Tile;
+    tileLinkedListTail! : Tile;
     tileListLength = 0;
 
     hayTileCount = 25;
@@ -14,30 +14,30 @@ export class TileManager {
     totalTiles = this.hayTileCount + this.wallTileCount;
 
     tilePosArray : { x: number; y: number; }[];
-    tilesArray : Tile [];
+    tilesArray : Tile [] = [];
 
     tileHeight = 35;
     tileWidth = 35;
 
+    loopIndex = 0;
+
     constructor(_spritesheet : Texture, _player : TankManager, _bullets : Bullet[], _parent : Container){
         this.tilePosArray = this.generateRandomPositions(CONFIG.RENDERER_WIDTH, CONFIG.RENDERER_HEIGHT, _player);
 
-        this.tilesArray = [];
-
-        for (let index = 0; index < this.hayTileCount; index++) {
+        for (this.loopIndex = 0; this.loopIndex < this.hayTileCount; this.loopIndex++) {
             let tile = new HayTile(_spritesheet, _player, _bullets, _parent)
             this.appendTileToList(tile);
             this.tilesArray.push(tile);
         }
 
-        for (let index = 0; index < this.wallTileCount; index++) {
+        for (this.loopIndex = 0; this.loopIndex < this.wallTileCount; this.loopIndex++) {
             let walltile = new WallTile(_spritesheet, _player, _bullets, _parent);
             this.appendTileToList(walltile);
             this.tilesArray.push(walltile);
         }
 
-        for (let index = 0; index < this.totalTiles; index++) {
-            this.tilesArray[index].tileSprite.position.set(this.tilePosArray[index].x, this.tilePosArray[index].y)
+        for (this.loopIndex = 0; this.loopIndex < this.totalTiles; this.loopIndex++) {
+            this.tilesArray[this.loopIndex].tileSprite.position.set(this.tilePosArray[this.loopIndex].x, this.tilePosArray[this.loopIndex].y)
         }
     }
 
@@ -56,24 +56,24 @@ export class TileManager {
     }
 
     update(){
-        this.tileLinkedListHead?.update();
+        this.tileLinkedListHead.update();
     }
 
-    generateRandomPositions(grid_width: number, grid_height: number, player: TankManager) {
+    generateRandomPositions(_grid_width: number, _grid_height: number, _player: TankManager) {
         const positions = [];
-        const playerpos = player.tankSprite.x+','+player.tankSprite.y;
+        const playerpos = _player.tankSprite.x+','+_player.tankSprite.y;
+        //add player pos to set and avoid overlapping player position
         const takenPositions = new Set([playerpos]);
         const totalTiles = this.wallTileCount + this.hayTileCount;
         while (positions.length < totalTiles) {
-            var x = Math.floor(Math.random() * (grid_width / this.tileWidth)) * this.tileWidth + (this.tileWidth / 2);
-        var y = Math.floor(Math.random() * (grid_height / this.tileHeight)) * this.tileHeight + (this.tileHeight / 2);
+            var x = Math.floor(Math.random() * (_grid_width / this.tileWidth)) * this.tileWidth + (this.tileWidth / 2);
+        var y = Math.floor(Math.random() * (_grid_height / this.tileHeight)) * this.tileHeight + (this.tileHeight / 2);
             const position = x + ',' + y;
             if (!takenPositions.has(position)) {
                 takenPositions.add(position);
                 positions.push({x: x, y: y});
             }
         }
-        console.log(positions);
         
         return positions;
     }

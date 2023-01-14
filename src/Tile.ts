@@ -16,12 +16,11 @@ export class Tile {
     //world
     gameWorld : Container;
 
+    //state
     isActive = false;
-
     tileWidth = 35;
     tileHeight = 35;
-
-    next : Tile | undefined;
+    next!: Tile;
 
 
     constructor(_spritesheet: Texture, _player : TankManager, _bullets : Bullet[], _parent:Container) {
@@ -44,12 +43,13 @@ export class Tile {
     }
 
     update(){
-        //if colliding player, stop movement
+        
         if(!this.isActive){
             this.next!.update();
-            return
+            return;
         };
 
+        //if colliding player, stop movement
         if(this.isBoxCollision(this.tankObj.tankSprite, this.tileSprite)){
             this.tankObj.isinContactWithTile = this.hitIsFacingTowardsTile();
             if(this.tankObj.isinContactWithTile){
@@ -58,9 +58,9 @@ export class Tile {
         }
 
         //if colliding bullet do relevant response
-        this.bulletsArray.forEach(element => {
-            if(this.isBoxCollision(element.bulletSprite, this.tileSprite)){
-                this.onHitBullet(element);
+        this.bulletsArray.forEach(bullet => {
+            if(bullet.isActive && this.isBoxCollision(bullet.bulletSprite, this.tileSprite)){
+                this.onHitBullet(bullet);
             }
         });
 
@@ -126,7 +126,8 @@ export class WallTile extends Tile {
     }
 
     onHitBullet(_bullet : Bullet): void {
-        _bullet.onCollision();
         console.log("wall");
+        
+        _bullet.onCollision();
     }
 }
