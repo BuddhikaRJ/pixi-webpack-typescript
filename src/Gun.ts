@@ -42,7 +42,8 @@ export class Gun {
     currentShootState = this.SHOOT_STATE.WAITING;
 
     //type switch
-    switchGunKey : Keyboard;
+    switchGunKey1 : Keyboard;
+    switchGunKey2 : Keyboard;
     gunTypesArray = Object.keys(this.GUN_TYPE_DATA);
     gunTypesCount = this.gunTypesArray.length;
     gunTypeArrId = 0;
@@ -57,12 +58,18 @@ export class Gun {
         }
         this.applyGunTypeChanges(this.GUN_TYPE_DATA.RED);
 
-        this.switchGunKey = new Keyboard(
+        this.switchGunKey1 = new Keyboard(
             "t", 
             ()=>{
                 this.selectNewGun()
             }, 
             ()=>{})
+        this.switchGunKey2 = new Keyboard(
+            "T",
+            () => {
+                this.selectNewGun()
+            },
+            () => { })
     }
 
     update(dt: number){
