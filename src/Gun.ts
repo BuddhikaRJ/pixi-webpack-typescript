@@ -4,26 +4,10 @@ import { Keyboard } from "./Keyboard";
 import { TankManager } from "./TankManager";
 
 export class Gun {
-    //render
-    player : TankManager;
-    gameWorld : Container;
-
-    //shooting
-    bulletsArray : Bullet[] = [];
-    gunTicker = 0;
+    //configurable values
+    bulletPoolsize = 3;
     bulletTickMax = 10;
     shootWaitTickmax = 10;
-    bulletCount = 3;
-    bulletId = 0;
-    bulletsPerShot = 0;
-    shootState: any = {
-        shooting: 0,
-        waiting: 1
-    }
-    currentShootState = this.shootState.waiting;
-
-    //type switch
-    switchGunKey : Keyboard;
     GUN_DATA : any = {
         RED : {
             color : 0xff0000,
@@ -41,6 +25,24 @@ export class Gun {
             bulletsPerShot : 1
         },
     }
+
+    //render
+    player : TankManager;
+    gameWorld : Container;
+
+    //shooting
+    bulletPool : Bullet[] = [];
+    gunTicker = 0;
+    bulletId = 0;
+    bulletsPerShot = 0;
+    shootState: any = {
+        shooting: 0,
+        waiting: 1
+    }
+    currentShootState = this.shootState.waiting;
+
+    //type switch
+    switchGunKey : Keyboard;
     gunTypes = Object.keys(this.GUN_DATA);
     gunTypesCount = this.gunTypes.length;
     gunTypeId = 0;
@@ -49,9 +51,9 @@ export class Gun {
     constructor(_spritesheet : Texture, parent: Container, player: TankManager){
         this.gameWorld = parent;
         this.player =player;
-        for (let index = 0; index < this.bulletCount; index++) {
+        for (let index = 0; index < this.bulletPoolsize; index++) {
             const bullet = new Bullet(_spritesheet, parent);
-            this.bulletsArray.push(bullet);
+            this.bulletPool.push(bullet);
         }
         this.applyGunTypeChanges(this.GUN_DATA.RED);
 
@@ -94,14 +96,14 @@ export class Gun {
                 break;
         }
 
-        this.bulletsArray.forEach(element => {
+        this.bulletPool.forEach(element => {
             element.update(dt);
         });
     }
 
     shoot(){
         // console.log("shoot");
-        const b = this.bulletsArray[this.bulletId]
+        const b = this.bulletPool[this.bulletId]
         this.gameWorld.addChild(b.bulletSprite);
         b.bulletSprite.tint = this.currentGunType.color;
         b.damage = this.currentGunType.damage;

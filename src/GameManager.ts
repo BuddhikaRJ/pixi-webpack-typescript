@@ -23,7 +23,7 @@ export class GameManager {
 
         this.gun = new Gun(tex!, this.gameWorld, this.tankManager);
 
-        this.tileManager = new TileManager(tex!, this.tankManager, this.gun.bulletsArray, this.gameWorld);
+        this.tileManager = new TileManager(tex!, this.tankManager, this.gun.bulletPool, this.gameWorld);
 
     }
 
@@ -32,7 +32,6 @@ export class GameManager {
         
         this.tankManager.update(dt);
 
-        this.gun.update(dt); 
-
+        this.gun.update(dt);
     }
 }

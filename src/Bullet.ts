@@ -2,11 +2,16 @@ import { Container, Rectangle, Sprite, Texture } from "pixi.js";
 import { CONFIG } from "./gameConfig";
 
 export class Bullet {
+    //configurable values
+    moveSpeed = 15;
+
+    //render
     bulletSprite : Sprite;
     gameWorld : Container;
+
+    //movement
     vX = 0;
     vY = 0;
-    moveSpeed = 15;
     isActive = false;
     damage = 0;
 

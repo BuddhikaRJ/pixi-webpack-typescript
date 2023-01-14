@@ -4,6 +4,10 @@ import { CONFIG } from "./gameConfig";
 import { TankManager } from "./TankManager";
 
 export class Tile {
+    //config values
+    tileWidth = 35;
+    tileHeight = 35;
+
     //player reference
     tankObj : TankManager;
 
@@ -18,8 +22,6 @@ export class Tile {
 
     //state
     isActive = false;
-    tileWidth = 35;
-    tileHeight = 35;
     next!: Tile;
 
 
@@ -81,7 +83,7 @@ export class Tile {
         let vCollisionNorm = {x: vCollision.x / distance, y: vCollision.y / distance};
         let vRelativeVelocity = {x : - this.tankObj.vX, y : - this.tankObj.vY};
         let dot = vCollisionNorm.x * vRelativeVelocity.x + vCollisionNorm.y * vRelativeVelocity.y;
-        console.log(dot>0);
+        // console.log(dot>0);
         return  dot > 0;
         
     }
@@ -126,7 +128,7 @@ export class WallTile extends Tile {
     }
 
     onHitBullet(_bullet : Bullet): void {
-        console.log("wall");
+        // console.log("wall");
         
         _bullet.onCollision();
     }

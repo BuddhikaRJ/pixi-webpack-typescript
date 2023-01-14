@@ -3,15 +3,22 @@ import { CONFIG } from "./gameConfig";
 import { Keyboard } from "./Keyboard";
 
 export class TankManager {
+    //configurable values
     tankWidth = 30;
     tankHeight = 30;
-
     moveSpeed = 10;
+
+    //render
     tankSprite : Sprite;
+    gameWorld : Container;
+
+    //keyboard input
     upKey : Keyboard;
     downKey : Keyboard;
     leftKey : Keyboard;
     rightKey : Keyboard;
+
+    //movement
     directions : any = {
         none : -1,
         up : 3,
@@ -23,13 +30,13 @@ export class TankManager {
     vY = 0;
     gunX = 0;
     gunY = 0;
-    gameWorld : Container;
 
+    //collisions
     isinContactWithTile = false;
 
     constructor(_spritesheet : Texture, parent: Container){
         this.gameWorld = parent;
-        
+
         const tex = new Texture(_spritesheet.baseTexture);
         this.tankSprite = new Sprite(tex);
         this.tankSprite.texture.frame = new Rectangle(...CONFIG.TEXTURE_COORDS.SQUARE);
@@ -79,7 +86,7 @@ export class TankManager {
             );
         //#endregion
 
-        this.tankSprite.position.set(512);
+        this.tankSprite.position.set(875);
         this.tankSprite.rotation = -1.57;
         this.gunY =-1;
 

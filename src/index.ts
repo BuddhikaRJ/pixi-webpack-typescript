@@ -18,7 +18,6 @@ const ASSETS_LIST = CONFIG.ASSETS;
 
 function initPixiApp() {
   PIXI_Renderer = new Renderer({ width:WIDTH, height:HEIGHT});
-//   PIXI_Renderer.autoResize = true;
 
   document.body.appendChild(PIXI_Renderer.view);
 

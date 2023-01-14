@@ -5,19 +5,22 @@ import { TankManager } from "./TankManager";
 import { HayTile, Tile, WallTile } from "./Tile";
 
 export class TileManager {
+
+    //configurable values==
+    hayTileCount = 25;
+    wallTileCount = 50;
+    tileHeight = 35;
+    tileWidth = 35;
+
+    //linked list of tiles
     tileLinkedListHead!: Tile;
     tileLinkedListTail! : Tile;
     tileListLength = 0;
 
-    hayTileCount = 25;
-    wallTileCount = 50;
     totalTiles = this.hayTileCount + this.wallTileCount;
 
     tilePosArray : { x: number; y: number; }[];
     tilesArray : Tile [] = [];
-
-    tileHeight = 35;
-    tileWidth = 35;
 
     loopIndex = 0;
 
